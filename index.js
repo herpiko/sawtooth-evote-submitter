@@ -4,20 +4,22 @@ const context = createContext('secp256k1')
 const privateKey = context.newRandomPrivateKey()
 const signer = new CryptoFactory(context).newSigner(privateKey)
 
+const {createHash} = require('crypto')
+const {protobuf} = require('sawtooth-sdk')
 const cbor = require('cbor')
 
 const familyName = 'vote';
 
+const name = 'tpscode-' + createHash('sha256').update((new Date()).valueOf().toString()).digest('hex').substr(-8);
+console.log(name);
 const payload = {
     Verb: 'set',
-    Name: 'jokowi',
-    Value: 42
+    Name: name,
+    Value: process.argv[2]
 }
 
 const payloadBytes = cbor.encode(payload)
 
-const {createHash} = require('crypto')
-const {protobuf} = require('sawtooth-sdk')
 
 /*
     - Addresses must be a 70 character hexadecimal string
