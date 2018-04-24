@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Herpiko Dwi Aguno <herpiko@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "cbor": "^4.0.0",
+    "prompt": "^1.0.0",
     "request": "^2.85.0",
     "sawtooth-sdk": "^1.0.2",
     "secp256k1": "^3.5.0"
