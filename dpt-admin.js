@@ -14,7 +14,7 @@ const submit = function(opt){
     const familyName = 'provinceDPT';
     
     const name = createHash('sha256').update(opt.voterId).digest('hex');
-    console.log(name);
+    console.log('Name : ' + name);
     
     const payload = {
         Verb: opt.verb,
@@ -22,7 +22,8 @@ const submit = function(opt){
         Value: opt.verb
     }
     
-    console.log(payload);
+    console.log('Family name : ' + familyName);
+    console.log('Payload name : ' + payload.Name);
     
     const payloadBytes = cbor.encode(payload)
     
@@ -36,6 +37,7 @@ const submit = function(opt){
     
     const payloadNameHash = createHash('sha512').update(payload.Name).digest('hex');
     const familyNameHash = createHash('sha512').update(familyName).digest('hex');
+    console.log('Txid : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
      
     const transactionHeaderBytes = protobuf.TransactionHeader.encode({
         familyName: familyName,
@@ -104,6 +106,10 @@ const submit = function(opt){
 }
 
 if (require.main === module) {
+  if (process.argv.length === 5) {
+    submit({voterId : process.argv[2], verb : process.argv[3], node : process.argv[4]});
+    return;
+  }
   const schema = {
     properties: {
       voterId : {
