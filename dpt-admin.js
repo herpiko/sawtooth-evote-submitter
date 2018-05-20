@@ -37,7 +37,7 @@ const submit = function(opt){
     
     const payloadNameHash = createHash('sha512').update(payload.Name).digest('hex');
     const familyNameHash = createHash('sha512').update(familyName).digest('hex');
-    console.log('Txid : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
+    console.log('Stateid : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
      
     const transactionHeaderBytes = protobuf.TransactionHeader.encode({
         familyName: familyName,
@@ -125,7 +125,7 @@ if (require.main === module) {
       node : {
         message : 'node host:port',
         required : true,
-        default : '127.0.0.1:8008'
+        default : 'localhost:3001'
       }
     }
   }
