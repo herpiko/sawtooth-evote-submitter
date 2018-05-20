@@ -100,7 +100,13 @@ const submit = function(opt){
           reject(err);
           return;
         }
-        resolve(response.body);
+        setTimeout(()=>{
+          let body = JSON.parse(response.body);
+          if (body.error) {
+            return reject(body.error.message);
+          }
+          resolve(response.body);
+        },100);
     })
   })
 }

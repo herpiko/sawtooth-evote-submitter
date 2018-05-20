@@ -9,6 +9,7 @@
   "author": "Herpiko Dwi Aguno <herpiko@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.6.0",
     "cbor": "^4.0.0",
     "faker": "^4.1.0",
     "prompt": "^1.0.0",
