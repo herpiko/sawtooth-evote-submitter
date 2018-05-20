@@ -37,7 +37,7 @@ const submit = function(opt){
     
     const payloadNameHash = createHash('sha512').update(payload.Name).digest('hex');
     const familyNameHash = createHash('sha512').update(familyName).digest('hex');
-    console.log('Stateid : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
+    console.log('StateID : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
      
     const transactionHeaderBytes = protobuf.TransactionHeader.encode({
         familyName: familyName,
@@ -115,7 +115,7 @@ if (require.main === module) {
       voterId : {
         message : 'voterId',
         required : true,
-        default : '1234567 Fulan bin fulan'
+        default : '52710501019120001_Herpiko_Dwi_Aguno'
       },
       verb : {
         message : 'verb [registered, invalid, ready]',
