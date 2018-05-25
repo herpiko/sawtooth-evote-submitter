@@ -89,7 +89,6 @@ const submit = function(opt){
     }).finish()
     
     const request = require('request')
-    
     request.post({
         url: 'http://' + opt.node + '/batches',
         body: batchListBytes,
@@ -100,13 +99,18 @@ const submit = function(opt){
           reject(err);
           return;
         }
-        setTimeout(()=>{
-          let body = JSON.parse(response.body);
-          if (body.error) {
-            return reject(body.error.message);
-          }
-          resolve(response.body);
-        },100);
+        var body = JSON.parse(response.body);
+        setTimeout(() => {
+          request.get({url:body.link}, (err, response) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+              return;
+            }
+            var body = JSON.parse(response.body);
+            resolve(body.data[0]);
+          });
+        }, 500);
     })
   })
 }
@@ -137,7 +141,13 @@ if (require.main === module) {
   }
   prompt.start();
   prompt.get(schema, (err, result) => {
-    submit(result);
+    submit(result)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   });
 } else {
   module.exports = submit;
