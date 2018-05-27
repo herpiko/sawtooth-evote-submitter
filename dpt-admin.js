@@ -135,7 +135,7 @@ if (require.main === module) {
       node : {
         message : 'node host:port',
         required : true,
-        default : 'localhost:3001'
+        default : 'localhost:11334'
       }
     }
   }
