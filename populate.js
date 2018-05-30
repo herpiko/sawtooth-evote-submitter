@@ -13,7 +13,7 @@ function(cb){
   let name = faker.name.findName();
   let nik = createHash('sha256').update((new Date()).valueOf().toString() + name).digest('hex');
   let uid = nik.substr(0,16) + '_' + name.replace(/\'/g, '').replace(/\./g, '').replace(/ /g, '_');
-  let payload = {voterId : uid, verb : 'registered', node : process.argv[3] || 'localhost:3001'}
+  let payload = {voterId : uid, verb : 'registered', node : process.argv[3] || 'localhost:11334'}
   //console.log(payload);
   submit(payload)
   .then((result)=>{
