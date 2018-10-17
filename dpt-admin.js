@@ -14,7 +14,6 @@ const submit = function(opt){
     const familyName = 'provinceDPT';
     
     const name = createHash('sha256').update(opt.voterId).digest('hex');
-    console.log('Name : ' + name);
     
     const payload = {
         Verb: opt.verb,
@@ -34,7 +33,6 @@ const submit = function(opt){
         - The following 64 characters of the address are the last 64 characters of a sha512 hash of the entry Name
     
     */
-    
     const payloadNameHash = createHash('sha512').update(payload.Name).digest('hex');
     const familyNameHash = createHash('sha512').update(familyName).digest('hex');
     console.log('StateID : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
@@ -125,7 +123,7 @@ if (require.main === module) {
       voterId : {
         message : 'voterId',
         required : true,
-        default : '52710501019120001_Herpiko_Dwi_Aguno'
+        default : '52710501019120001_herpiko_dwi_aguno'
       },
       verb : {
         message : 'verb [registered, invalid, ready]',
@@ -135,7 +133,7 @@ if (require.main === module) {
       node : {
         message : 'node host:port',
         required : true,
-        default : 'localhost:11334'
+        default : 'localhost:11332'
       }
     }
   }
