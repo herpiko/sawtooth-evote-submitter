@@ -9,12 +9,9 @@ const {createHash} = require('crypto')
 const {protobuf} = require('sawtooth-sdk')
 const cbor = require('cbor')
 
-const familyName = 'ledgerLocalVote';
+const familyName = 'localVote';
 
-var vote = function(host, id, val) {
-  console.log(host);
-  console.log(id);
-  console.log(val);
+var vote = function(node, id, val) {
   return new Promise((resolve, reject) => {
   
     const payload = {
@@ -86,12 +83,11 @@ var vote = function(host, id, val) {
     }).finish()
     
     request.post({
-        url: 'http://' + host + ':8008/batches',
+        url: 'http://' + node + '/batches',
         body: batchListBytes,
         headers: {'Content-Type': 'application/octet-stream'}
     }, (err, response) => {
         if (err) return reject(err);
-        console.log(response.body)
         resolve(response.body);
     })
   });
