@@ -1,6 +1,7 @@
 const {createContext, CryptoFactory} = require('sawtooth-sdk/signing')
 const request = require('request');
 const fs = require('fs');
+const base64 = require('js-base64').Base64;
 const async = require('async');
 
 const context = createContext('secp256k1')
@@ -23,9 +24,11 @@ const options = {
   passphrase : '123456',
 }
 
+const candidates = JSON.parse(fs.readFileSync('candidates.json', 'utf8'));
+
 const submit = function(opt){
   return new Promise((resolve, reject) => {
-    const familyName = 'localDPT';
+    const familyName = opt.familyName;
     
     const name = opt.name || createHash('sha256').update(opt.voterId).digest('hex');
     
@@ -144,6 +147,7 @@ request.get('https://' + host + '/api/dpt-dump?state=ready', options, (err, resp
         submit({
           name : name,
           verb : 'ready',
+          familyName : 'localDPT',
         })
         .then((result) => {
           console.log(result);
@@ -154,8 +158,23 @@ request.get('https://' + host + '/api/dpt-dump?state=ready', options, (err, resp
         });
      });
     }, (err) => {
-      if (err) console.log(err);
-      console.log('Importing done.');
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log('Importing candidates.');
+      submit({
+        name : 'candidates',
+        verb : base64.encode(JSON.stringify(candidates)),
+        familyName : 'candidates',
+      })
+      .then((result) => {
+        console.log(result);
+        console.log('Importing done.');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     });
   } catch(e) {
     console.log(response.body);
