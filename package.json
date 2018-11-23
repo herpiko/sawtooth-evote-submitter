@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dpt-admin": "node dpt-admin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Herpiko Dwi Aguno <herpiko@gmail.com>",

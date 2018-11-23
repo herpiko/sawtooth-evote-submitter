@@ -9,13 +9,14 @@ const {createHash} = require('crypto')
 const {protobuf} = require('sawtooth-sdk')
 const cbor = require('cbor')
 
-const familyName = 'localVote';
+var defaultFamilyName = 'localVote';
 
-var vote = function(node, id, val) {
+var vote = function(node, fn, id, val) {
+  var familyName = fn || defaultFamilyName
   return new Promise((resolve, reject) => {
   
     const payload = {
-        Verb: 'set',
+        Verb: (familyName === 'localVote') ? 'set' : 'vote',
         Name: id,
         Value: val,
     }
@@ -29,9 +30,9 @@ var vote = function(node, id, val) {
         - The following 64 characters of the address are the last 64 characters of a sha512 hash of the entry Name
     
     */
-    
     const payloadNameHash = createHash('sha512').update(payload.Name).digest('hex');
     const familyNameHash = createHash('sha512').update(familyName).digest('hex');
+    console.log('StateID : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
      
     const transactionHeaderBytes = protobuf.TransactionHeader.encode({
         familyName: familyName,
