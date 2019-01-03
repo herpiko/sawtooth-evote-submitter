@@ -123,7 +123,9 @@ if (require.main === module) {
       voterId : {
         message : 'voterId',
         required : true,
-        default : '52710501019120001_herpiko_dwi_aguno'
+        default : process.argv[2] === 'saeful' ? '52710501019020001_saeful_bahri' : 
+          process.argv[2] === 'ayu' ? '3201017009920006_ayu_septiani' : 
+          '52710501019120001_herpiko_dwi_aguno',
       },
       verb : {
         message : 'verb [registered, invalid, ready]',

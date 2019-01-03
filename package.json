@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dpt-admin": "node dpt-admin.js",
+    "dpt-admin-saeful": "node dpt-admin.js saeful",
+    "dpt-admin-ayu": "node dpt-admin.js ayu",
+    "dpt-admin-batch": "npm run dpt-admin-saeful && npm run dpt-admin-ayu",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Herpiko Dwi Aguno <herpiko@gmail.com>",

@@ -17,7 +17,7 @@ var vote = function(node, fn, txs) {
     let transactions = [];
     for (let i in txs) {
       const payload = {
-          Verb: (familyName === 'provinceVote') ? 'set' : 'vote',
+          Verb: (familyName === 'provinceVote' || familyName === 'provinceVoter') ? 'set' : 'vote',
           Name: txs[i].id.substr(0,20),
           Value: txs[i].state,
       }
