@@ -33,7 +33,7 @@ var vote = function(node, fn, txs) {
       */
       const payloadNameHash = createHash('sha512').update(payload.Name).digest('hex');
       const familyNameHash = createHash('sha512').update(familyName).digest('hex');
-      console.log('StateID : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
+      //console.log('StateID : ' + familyNameHash.substr(0,6) + payloadNameHash.substr(-64));
        
       const transactionHeaderBytes = protobuf.TransactionHeader.encode({
           familyName: familyName,
